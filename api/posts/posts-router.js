@@ -40,10 +40,28 @@ router.post('/', (req,res) => {
     Posts.insert( req.body)
     .then(created => {
         if (created) {
-            res.status(202).json(created)
+            res.json(created)
         }
         else {
             res.status(404).json({ message: 'You did it wrong'})
+        }
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({
+            message: "You didn't get the posts"
+        })
+    })
+})
+
+router.put('/:id', (req,res) => {
+    Posts.update(req.params.id, req.body)
+    .then(update => {
+        if (update) {
+            res.json(update)
+        }
+        else {
+            res.status(404).json({message: 'You did it wrong'})
         }
     })
     .catch(err => {
