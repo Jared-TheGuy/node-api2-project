@@ -5,17 +5,17 @@ const router = express.Router()
 
 const Posts = require('./posts-model')
 
-router.get('/test', async (req, res) => {
-    try {
-        res.json({
-            message: "Yeah!"
+router.get('/', (req,res) => {
+    Posts.find()
+    .then(posts => {
+        res.json(posts)
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({
+                message: "You didn't get the posts"
+            })
         })
-    }
-    catch (err) {
-        res.json({
-            message: "Your a wackamole"
-        })
-    }
+    })
 })
 
 module.exports = router
