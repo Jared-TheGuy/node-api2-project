@@ -72,5 +72,23 @@ router.put('/:id', (req,res) => {
     })
 })
 
+router.delete('/:id', (req,res) => {
+    Posts.remove(req.params.id)
+    .then(removed => {
+        if (removed) {
+            res.json(removed)
+        }
+        else {
+            res.status(404).json({message: 'You did it wrong'})
+        }
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({
+            message: "You didn't get the posts"
+        })
+    })
+})
+
 module.exports = router
 
