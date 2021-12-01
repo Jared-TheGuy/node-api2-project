@@ -36,5 +36,23 @@ router.get('/:id', (req,res) => {
     })
 })
 
+router.post('/', (req,res) => {
+    Posts.insert( req.body)
+    .then(created => {
+        if (created) {
+            res.status(202).json(created)
+        }
+        else {
+            res.status(404).json({ message: 'You did it wrong'})
+        }
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({
+            message: "You didn't get the posts"
+        })
+    })
+})
+
 module.exports = router
 
