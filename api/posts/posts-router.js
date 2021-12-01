@@ -18,5 +18,23 @@ router.get('/', (req,res) => {
     })
 })
 
+router.get('/:id', (req,res) => {
+    Posts.findById(req.params.id)
+    .then((posts => {
+        if (posts) {
+            res.json(posts)
+        }
+        else {
+            res.status(404).json({ message: 'this does not exists'})
+        }
+    }))
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({
+            message: "You didn't get the posts"
+        })
+    })
+})
+
 module.exports = router
 
